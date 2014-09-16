@@ -1,0 +1,42 @@
+{
+    "name": "ugh/ugh-authorization",
+    "description": "A reusable and customizable ZF2 authentication and authorization module.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "module",
+        "zf2",
+        "authorization",
+        "rbac",
+        "permissions"
+    ],
+    "homepage": "https://github.com/ughly/ugh-authorization",
+    "authors": [
+        {
+            "name": "Chris Yawman",
+            "email": "christopher.yawman@neustar.biz"
+        },
+        {
+            "name": "Joel Gilliland",
+            "email": "joel.gilliland@neustar.biz"
+        },
+        {
+            "name": "Andy Majot",
+            "email": "andy.majot@neustar.biz"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=3.7,<4"
+    },
+    "autoload": {
+        "psr-0": {
+            "UghAuthorization": "src/"
+        },
+        "classmap": [
+            "Module.php"
+        ]
+    }
+}
