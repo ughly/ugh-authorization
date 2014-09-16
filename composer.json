@@ -1,5 +1,5 @@
 {
-    "name": "ugh/ugh-authorization",
+    "name": "ughly/ugh-authorization",
     "description": "A reusable and customizable ZF2 authentication and authorization module.",
     "type": "library",
     "license": "MIT",
