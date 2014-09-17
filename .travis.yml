@@ -8,6 +8,7 @@ php:
 before_install:
  - composer install --prefer-source --dev
  - mkdir -p data/logs
+ - mkdir -p build/logs
 
 script:
  - ./vendor/bin/phpunit --bootstrap=test/Bootstrap.php --coverage-clover ./build/logs/clover.xml
