@@ -6,7 +6,7 @@ php:
   - 5.5
 
 before_install:
- - php composer.phar install --prefer-source --dev
+ - composer install --prefer-source --dev
  - mkdir -p data/logs
 
 script:
