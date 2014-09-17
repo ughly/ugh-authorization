@@ -2,7 +2,8 @@
 
 namespace UghAuthorization\Authorization;
 
-class AuthorizationService
+interface AuthorizationService
 {
-    //...
+    public function isGranted($permission);
+    public function matchIdentityRoles(array $roles);
 }
