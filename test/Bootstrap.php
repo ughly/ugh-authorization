@@ -1,5 +1,7 @@
 <?php
 
+chdir(__DIR__);
+
 $files = [
     __DIR__ . '/../vendor/autoload.php',
     __DIR__ . '/../../../autoload.php'
@@ -17,4 +19,4 @@ if (!isset($loader)) {
 }
 
 $loader->add('UghAuthorizationTest', "./test/UghAuthorizationTest");
-Zend\Mvc\Application::init(require './test/config/application.config.php');
+Zend\Mvc\Application::init(require './config/application.config.php');
