@@ -1,11 +1,5 @@
 [![Build Status](https://travis-ci.org/ughly/ugh-authorization.svg)](https://travis-ci.org/ughly/ugh-authorization)
 
-[![Coverage Status](https://coveralls.io/repos/satooshi/php-coveralls/badge.png?branch=master)](https://coveralls.io/r/satooshi/php-coveralls)
-[![Dependency Status](https://www.versioneye.com/package/php--satooshi--php-coveralls/badge.png)](https://www.versioneye.com/package/php--satooshi--php-coveralls)
-
-[![Latest Stable Version](https://poser.pugx.org/satooshi/php-coveralls/v/stable.png)](https://packagist.org/packages/satooshi/php-coveralls)
-[![Total Downloads](https://poser.pugx.org/satooshi/php-coveralls/downloads.png)](https://packagist.org/packages/satooshi/php-coveralls)
-
 Overview
 ========
 
