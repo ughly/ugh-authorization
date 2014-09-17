@@ -62,5 +62,4 @@ class ConfigFileRoleProviderTest extends PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $roles);
     }
-
 }

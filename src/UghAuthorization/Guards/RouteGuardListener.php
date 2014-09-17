@@ -2,6 +2,8 @@
 
 namespace UghAuthorization\Guards;
 
+use Exception;
+use UghAuthorization\Guards\Guard;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
@@ -29,21 +31,20 @@ class RouteGuardListener extends AbstractListenerAggregate
         if ($this->guard->isGranted($routeName)) {
             return;
         }
-        
+
         $this->triggerForbiddenEvent($event);
     }
-    
+
     private function triggerForbiddenEvent(MvcEvent $event)
     {
         $event->setError('route-forbidden');
-        $event->setParam('exception', new \Exception('You are forbidden!', 403));
-        
+        $event->setParam('exception', new Exception('You are forbidden!', 403));
+
         $event->stopPropagation(true);
-        
-        $application  = $event->getApplication();
+
+        $application = $event->getApplication();
         $eventManager = $application->getEventManager();
 
         $eventManager->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $event);
     }
-
 }
