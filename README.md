@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ughly/ugh-authorization.svg)](https://travis-ci.org/ughly/ugh-authorization)
+
 Overview
 ========
 
