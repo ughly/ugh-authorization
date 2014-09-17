@@ -1,5 +1,5 @@
 nbproject
-build
+build/logs
 vendor
 composer.lock
 .idea
