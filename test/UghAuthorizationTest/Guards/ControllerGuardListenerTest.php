@@ -3,21 +3,21 @@
 namespace UghAuthorizationTest\Guards;
 
 use PHPUnit_Framework_TestCase;
-use UghAuthorization\Guards\RouteGuardListener;
+use UghAuthorization\Guards\ControllerGuardListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 
-class RouteGuardListenerTest extends PHPUnit_Framework_TestCase
+class ControllerGuardListenerTest extends PHPUnit_Framework_TestCase
 {
 
     public function testCanAttachEvent()
     {
-        $routeGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard')->disableOriginalConstructor()->getMock();
+        $controllerGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard')->disableOriginalConstructor()->getMock();
 
         $eventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
         $eventManager->expects($this->once())->method('attach')->with(MvcEvent::EVENT_ROUTE);
 
-        $guard = new RouteGuardListener($routeGuardMock);
+        $guard = new ControllerGuardListener($controllerGuardMock);
 
         $guard->attach($eventManager);
     }
@@ -31,18 +31,19 @@ class RouteGuardListenerTest extends PHPUnit_Framework_TestCase
         $application->expects($this->any())->method('getEventManager')->will($this->returnValue($eventManager));
 
         $routeMatch = new RouteMatch(array());
-        $routeMatch->setMatchedRouteName('secure');
+        $routeMatch->setParam("controller", "index");
+        $routeMatch->setParam("action", "update");
 
         $event = new MvcEvent();
         $event->setRouteMatch($routeMatch);
         $event->setApplication($application);
 
-        $routeGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard', array('isGranted'))->disableOriginalConstructor()->getMock();
-        $routeGuardMock->expects($this->any())->method('isGranted')->will($this->returnValue(false));
+        $controllerGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard', array('isGranted'))->disableOriginalConstructor()->getMock();
+        $controllerGuardMock->expects($this->any())->method('isGranted')->will($this->returnValue(false));
 
-        $routeGuardListener = new RouteGuardListener($routeGuardMock);
+        $controllerGuardListener = new ControllerGuardListener($controllerGuardMock);
 
-        $routeGuardListener->onGuard($event);
+        $controllerGuardListener->onGuard($event);
 
         $this->assertTrue($event->propagationIsStopped());
         $this->assertEquals('route-forbidden', $event->getError());
@@ -57,20 +58,22 @@ class RouteGuardListenerTest extends PHPUnit_Framework_TestCase
         $application->expects($this->any())->method('getEventManager')->will($this->returnValue($eventManager));
 
         $routeMatch = new RouteMatch(array());
-        $routeMatch->setMatchedRouteName('secure');
+        $routeMatch->setParam("controller", "index");
+        $routeMatch->setParam("action", "update");
 
         $event = new MvcEvent();
         $event->setRouteMatch($routeMatch);
         $event->setApplication($application);
 
-        $routeGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard', array('isGranted'))->disableOriginalConstructor()->getMock();
-        $routeGuardMock->expects($this->any())->method('isGranted')->will($this->returnValue(true));
+        $controllerGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard', array('isGranted'))->disableOriginalConstructor()->getMock();
+        $controllerGuardMock->expects($this->any())->method('isGranted')->will($this->returnValue(true));
 
-        $routeGuardListener = new RouteGuardListener($routeGuardMock);
+        $controllerGuardListener = new ControllerGuardListener($controllerGuardMock);
 
-        $routeGuardListener->onGuard($event);
+        $controllerGuardListener->onGuard($event);
 
         $this->assertFalse($event->propagationIsStopped());
         $this->assertEmpty($event->getError());
     }
+
 }
