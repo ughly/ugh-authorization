@@ -27,7 +27,7 @@ class RouteGuardListenerTest extends PHPUnit_Framework_TestCase
         $eventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
         $eventManager->expects($this->once())->method('trigger')->with(MvcEvent::EVENT_DISPATCH_ERROR);
 
-        $application = $this->getMock('Zend\Mvc\Application', [], [], '', false);
+        $application = $this->getMock('Zend\Mvc\Application', array(), array(), '', false);
         $application->expects($this->any())->method('getEventManager')->will($this->returnValue($eventManager));
 
         $routeMatch = new RouteMatch(array());
@@ -53,7 +53,7 @@ class RouteGuardListenerTest extends PHPUnit_Framework_TestCase
         $eventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
         $eventManager->expects($this->never())->method('trigger');
 
-        $application = $this->getMock('Zend\Mvc\Application', [], [], '', false);
+        $application = $this->getMock('Zend\Mvc\Application', array(), array(), '', false);
         $application->expects($this->any())->method('getEventManager')->will($this->returnValue($eventManager));
 
         $routeMatch = new RouteMatch(array());
