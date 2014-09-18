@@ -17,5 +17,4 @@ class RouteGuardListener extends GuardListener
 
         $this->triggerForbiddenEvent($event);
     }
-
 }

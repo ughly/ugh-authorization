@@ -40,5 +40,4 @@ class ControllerGuard implements Guard
 
         return $allowedRoles;
     }
-
 }
