@@ -1,0 +1,10 @@
+<?php
+
+return array(
+    'ugh_authorization' => array(
+        'authentication_service' => '',
+        'role_provider' => array(),
+        'route_guards' => array(),
+        'controller_guards' => array()
+    )
+);
