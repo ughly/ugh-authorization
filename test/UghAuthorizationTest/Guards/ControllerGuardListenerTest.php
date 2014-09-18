@@ -75,5 +75,4 @@ class ControllerGuardListenerTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($event->propagationIsStopped());
         $this->assertEmpty($event->getError());
     }
-
 }

@@ -61,5 +61,4 @@ class ControllerGuardTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('member', 'editor'), $controllerGuard->getAllowedRolesByControllerAction('index', 'update'));
         $this->assertEquals(array('superadmin', 'guest'), $controllerGuard->getAllowedRolesByControllerAction('foo', 'bar'));
     }
-
 }

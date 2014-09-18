@@ -18,5 +18,4 @@ class ControllerGuardListener extends GuardListener
 
         $this->triggerForbiddenEvent($event);
     }
-
 }
