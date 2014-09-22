@@ -2,6 +2,9 @@
 
 namespace UghAuthorization\Factory\Permissions\Rbac;
 
+use UghAuthorization\Identity\IdentityProvider;
+use UghAuthorization\Options\ModuleOptions;
+use UghAuthorization\Permissions\Rbac\RoleProvider;
 use Zend\Permissions\Rbac\Rbac;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -11,11 +14,18 @@ class RbacFactory implements FactoryInterface
 
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $identityProvider = $serviceLocator->get('UghAuthorization\Authentication\IdentityProvider');
+        /* @var $moduleOptions ModuleOptions */
+        $moduleOptions = $serviceLocator->get('UghAuthorization\Options\ModuleOptions');
 
-        $roleProvider = $serviceLocator->get('UghAuthorization\Permissions\Rbac\RoleProvider');
+        /* @var $roleProvider RoleProvider */
+        $roleProvider = $serviceLocator->get($moduleOptions->getRoleProvider());
+        
+        /* @var $identityProvider IdentityProvider */
+        $identityProvider = $serviceLocator->get($moduleOptions->getIdentityProvider());
 
-        $roles = $roleProvider->getRoles($identityProvider->getRoles());
+        $identity = $identityProvider->getIdentity();
+
+        $roles = $roleProvider->getRoles($identity->getRoles());
 
         $rbac = new Rbac();
 

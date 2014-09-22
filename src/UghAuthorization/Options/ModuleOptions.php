@@ -7,7 +7,7 @@ use Zend\Stdlib\AbstractOptions;
 class ModuleOptions extends AbstractOptions
 {
 
-    protected $authenticationService;
+    protected $identityProvider;
     protected $roleProvider;
     protected $routeGuards;
     protected $controllerGuards;
@@ -15,16 +15,6 @@ class ModuleOptions extends AbstractOptions
     public function __construct($options = null)
     {
         parent::__construct($options);
-    }
-
-    public function getAuthenticationService()
-    {
-        return $this->authenticationService;
-    }
-
-    public function setAuthenticationService($authenticationService)
-    {
-        $this->authenticationService = $authenticationService;
     }
 
     public function getRoleProvider()
@@ -55,5 +45,15 @@ class ModuleOptions extends AbstractOptions
     public function setControllerGuards($controllerGuards)
     {
         $this->controllerGuards = $controllerGuards;
+    }
+
+    public function getIdentityProvider()
+    {
+        return $this->identityProvider;
+    }
+
+    public function setIdentityProvider($identityProvider)
+    {
+        $this->identityProvider = $identityProvider;
     }
 }

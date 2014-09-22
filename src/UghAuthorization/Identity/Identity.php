@@ -1,8 +1,8 @@
 <?php
 
-namespace UghAuthorization\Authentication;
+namespace UghAuthorization\Identity;
 
-interface IdentityProvider
+interface Identity
 {
 
     /**

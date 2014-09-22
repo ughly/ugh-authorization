@@ -11,13 +11,13 @@ class ModuleOptionsTest extends PHPUnit_Framework_TestCase
     public function testCanLoadOptions()
     {
         $moduleOptions = new ModuleOptions(array(
-            'authentication_service' => 'AuthService',
+            'identity_provider' => 'IdentityProvider',
             'role_provider' => array('RoleProvider'),
             'route_guards' => array('RouteGuards'),
             'controller_guards' => array('ControllerGuards')
         ));
 
-        $this->assertEquals('AuthService', $moduleOptions->getAuthenticationService());
+        $this->assertEquals('IdentityProvider', $moduleOptions->getIdentityProvider());
         $this->assertEquals(array('RoleProvider'), $moduleOptions->getRoleProvider());
         $this->assertEquals(array('RouteGuards'), $moduleOptions->getRouteGuards());
         $this->assertEquals(array('ControllerGuards'), $moduleOptions->getControllerGuards());
