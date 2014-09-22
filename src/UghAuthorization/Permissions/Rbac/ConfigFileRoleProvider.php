@@ -19,30 +19,33 @@ class ConfigFileRoleProvider implements RoleProvider
         $roles = array();
 
         foreach ($roleNames as $roleName) {
-            if (!isset($this->rolesConfig[$roleName])) {
-                $roles[] = new Role($roleName);
-                continue;
-            }
-
-            $role = new Role($roleName);
-
-            $roleConfig = $this->rolesConfig[$roleName];
-
-            if (isset($roleConfig['children'])) {
-                $childRoles = (array) $roleConfig['children'];
-                foreach ($this->getRoles($childRoles) as $childRole) {
-                    $role->addChild($childRole);
-                }
-            }
-
-            $permissions = isset($roleConfig['permissions']) ? $roleConfig['permissions'] : array();
-            foreach ($permissions as $permission) {
-                $role->addPermission($permission);
-            }
-
-            $roles[] = $role;
+            $roles[] = $this->createRole($roleName);
         }
 
         return $roles;
+    }
+
+    private function createRole($roleName)
+    {
+        $role = new Role($roleName);
+
+        $roleConfig = isset($this->rolesConfig[$roleName]) ? $this->rolesConfig[$roleName] : array();
+
+        if (isset($roleConfig['children'])) {
+            $childRoles = (array) $roleConfig['children'];
+            $children = $this->getRoles($childRoles);
+            foreach ($children as $child) {
+                $role->addChild($child);
+            }
+        }
+
+        if (isset($roleConfig['permissions'])) {
+            $permissions = (array) $roleConfig['permissions'];
+            foreach ($permissions as $permission) {
+                $role->addPermission($permission);
+            }
+        }
+
+        return $role;
     }
 }
