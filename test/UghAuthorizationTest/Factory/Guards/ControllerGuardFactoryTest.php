@@ -1,0 +1,37 @@
+<?php
+
+namespace UghAuthorizationTest\Factory\Guards;
+
+use PHPUnit_Framework_TestCase;
+use UghAuthorization\Factory\Guards\ControllerGuardFactory;
+use Zend\ServiceManager\ServiceManager;
+
+class ControllerGuardFactoryTest extends PHPUnit_Framework_TestCase
+{
+
+    public function testCanCreateService()
+    {
+        $testArray = array(
+            'controller' => 'index',
+            'actions' => array('update', 'delete'),
+            'roles' => array('member', 'editor')
+        );
+        $authorizationProvderMock = $this->getMockBuilder('UghAuthorization\Authorization\AuthorizationService', array('matchIdentityRoles'))->disableOriginalConstructor()->getMock();
+        $authorizationProvderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(array('editor')));
+
+        $moduleOptionsMock = $this->getMockBuilder('UghAuthorization\Options\ModuleOptions', array('getControllerGuards'))->disableOriginalConstructor()->getMock();
+        $moduleOptionsMock->expects($this->once())->method('getControllerGuards')->will($this->returnValue(array($testArray)));
+
+        $serviceManager = new ServiceManager();
+        $serviceManager->setService('UghAuthorization\Options\ModuleOptions', $moduleOptionsMock);
+        $serviceManager->setService('UghAuthorization\Authorization\RbacService', $authorizationProvderMock);
+
+        $factory = new ControllerGuardFactory();
+
+        $controllerGuard = $factory->createService($serviceManager);
+
+        $this->assertEquals($controllerGuard->isGranted(array('controller' => 'index', 'action' => 'update')), array('editor'));
+        $this->assertInstanceOf('UghAuthorization\Guards\ControllerGuard', $controllerGuard);
+    }
+
+}
