@@ -17,7 +17,7 @@ class ControllerGuardFactoryTest extends PHPUnit_Framework_TestCase
             'roles' => array('member', 'editor')
         );
         $authorizationProvderMock = $this->getMockBuilder('UghAuthorization\Authorization\AuthorizationService', array('matchIdentityRoles'))->disableOriginalConstructor()->getMock();
-        $authorizationProvderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(array('editor')));
+        $authorizationProvderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(true));
 
         $moduleOptionsMock = $this->getMockBuilder('UghAuthorization\Options\ModuleOptions', array('getControllerGuards'))->disableOriginalConstructor()->getMock();
         $moduleOptionsMock->expects($this->once())->method('getControllerGuards')->will($this->returnValue(array($testArray)));
@@ -30,8 +30,7 @@ class ControllerGuardFactoryTest extends PHPUnit_Framework_TestCase
 
         $controllerGuard = $factory->createService($serviceManager);
 
-        $this->assertEquals($controllerGuard->isGranted(array('controller' => 'index', 'action' => 'update')), array('editor'));
+        $this->assertTrue($controllerGuard->isGranted(array('controller' => 'index', 'action' => 'update')));
         $this->assertInstanceOf('UghAuthorization\Guards\ControllerGuard', $controllerGuard);
     }
-
 }

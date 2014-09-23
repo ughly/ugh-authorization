@@ -20,5 +20,4 @@ class RouteGuardFactory implements FactoryInterface
 
         return $controllerGuard;
     }
-
 }

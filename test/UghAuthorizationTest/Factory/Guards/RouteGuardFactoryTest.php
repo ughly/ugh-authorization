@@ -16,7 +16,7 @@ class RouteGuardFactoryTest extends PHPUnit_Framework_TestCase
         );
 
         $authorizationProvderMock = $this->getMockBuilder('UghAuthorization\Authorization\AuthorizationService', array('matchIdentityRoles'))->disableOriginalConstructor()->getMock();
-        $authorizationProvderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(array('member')));
+        $authorizationProvderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(true));
 
         $moduleOptionsMock = $this->getMockBuilder('UghAuthorization\Options\ModuleOptions', array('getRouteGuards'))->disableOriginalConstructor()->getMock();
         $moduleOptionsMock->expects($this->once())->method('getRouteGuards')->will($this->returnValue(array($testArray)));
@@ -29,8 +29,7 @@ class RouteGuardFactoryTest extends PHPUnit_Framework_TestCase
 
         $controllerGuard = $factory->createService($serviceManager);
 
-        $this->assertEquals($controllerGuard->isGranted('secure'), array('member'));
+        $this->assertTrue($controllerGuard->isGranted('secure'));
         $this->assertInstanceOf('UghAuthorization\Guards\RouteGuard', $controllerGuard);
     }
-
 }

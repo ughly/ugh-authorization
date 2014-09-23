@@ -20,5 +20,4 @@ class ControllerGuardFactory implements FactoryInterface
 
         return $controllerGuard;
     }
-
 }
