@@ -7,6 +7,8 @@ return array(
             'UghAuthorization\Permissions\Rbac\Rbac' => 'UghAuthorization\Factory\Permissions\Rbac\RbacFactory',
             'UghAuthorization\Guards\RouteGuard' => 'UghAuthorization\Factory\Guards\RouteGuardFactory',
             'UghAuthorization\Guards\RouteGuardListener' => 'UghAuthorization\Factory\Guards\RouteGuardListenerFactory',
+            'UghAuthorization\Guards\ControllerGuard' => 'UghAuthorization\Factory\Guards\ControllerGuardFactory',
+            'UghAuthorization\Guards\ControllerGuardListener' => 'UghAuthorization\Factory\Guards\ControllerGuardListenerFactory',
             'UghAuthorization\Authorization\AuthorizationEventListener' => 'UghAuthorization\Factory\Authorization\AuthorizationEventListenerFactory'
         )
     )
