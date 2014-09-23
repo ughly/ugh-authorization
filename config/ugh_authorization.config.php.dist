@@ -5,6 +5,10 @@ return array(
         'identity_provider' => '',
         'role_provider' => array(),
         'route_guards' => array(),
-        'controller_guards' => array()
+        'controller_guards' => array(),
+        'guard_listeners' => array(
+            'UghAuthorization\Guards\RouteGuardListener',
+            'UghAuthorization\Guards\ControllerGuardListener'
+        )
     )
 );

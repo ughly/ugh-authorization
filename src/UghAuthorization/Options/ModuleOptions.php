@@ -7,10 +7,11 @@ use Zend\Stdlib\AbstractOptions;
 class ModuleOptions extends AbstractOptions
 {
 
-    protected $identityProvider;
-    protected $roleProvider;
-    protected $routeGuards;
-    protected $controllerGuards;
+    private $identityProvider;
+    private $roleProvider;
+    private $routeGuards;
+    private $controllerGuards;
+    private $guardListeners;
 
     public function __construct($options = null)
     {
@@ -55,5 +56,15 @@ class ModuleOptions extends AbstractOptions
     public function setIdentityProvider($identityProvider)
     {
         $this->identityProvider = $identityProvider;
+    }
+
+    public function getGuardListeners()
+    {
+        return $this->guardListeners;
+    }
+
+    public function setGuardListeners($guardListeners)
+    {
+        $this->guardListeners = $guardListeners;
     }
 }
