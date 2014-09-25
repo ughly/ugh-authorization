@@ -11,7 +11,7 @@ class RouteGuardFactory implements FactoryInterface
 
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $authorizationService = $serviceLocator->get('UghAuthorization\Authorization\RbacService');
+        $authorizationService = $serviceLocator->get('UghAuthorization\Authorization\AuthorizationService');
 
         $options = $serviceLocator->get('UghAuthorization\Options\ModuleOptions');
         $routeGuards = $options->getRouteGuards();

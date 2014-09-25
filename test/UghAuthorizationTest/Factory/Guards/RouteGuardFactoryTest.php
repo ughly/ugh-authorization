@@ -23,7 +23,7 @@ class RouteGuardFactoryTest extends PHPUnit_Framework_TestCase
 
         $serviceManager = new ServiceManager();
         $serviceManager->setService('UghAuthorization\Options\ModuleOptions', $moduleOptionsMock);
-        $serviceManager->setService('UghAuthorization\Authorization\RbacService', $authorizationProvderMock);
+        $serviceManager->setService('UghAuthorization\Authorization\AuthorizationService', $authorizationProvderMock);
 
         $factory = new RouteGuardFactory();
 

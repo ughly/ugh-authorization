@@ -5,6 +5,7 @@ namespace UghAuthorization\Factory\Permissions\Rbac;
 use UghAuthorization\Identity\IdentityProvider;
 use UghAuthorization\Options\ModuleOptions;
 use UghAuthorization\Permissions\Rbac\RoleProvider;
+use UghAuthorization\Permissions\Rbac\RoleProviderPluginManager;
 use Zend\Permissions\Rbac\Rbac;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -17,9 +18,14 @@ class RbacFactory implements FactoryInterface
         /* @var $moduleOptions ModuleOptions */
         $moduleOptions = $serviceLocator->get('UghAuthorization\Options\ModuleOptions');
 
+        /* @var $pluginManager RoleProviderPluginManager */
+        $pluginManager = $serviceLocator->get('UghAuthorization\Permissions\Rbac\RoleProviderPluginManager');
+
+        $roleProviderConfig = $moduleOptions->getRoleProvider();
+
         /* @var $roleProvider RoleProvider */
-        $roleProvider = $serviceLocator->get($moduleOptions->getRoleProvider());
-        
+        $roleProvider = $pluginManager->get(key($roleProviderConfig), current($roleProviderConfig));
+
         /* @var $identityProvider IdentityProvider */
         $identityProvider = $serviceLocator->get($moduleOptions->getIdentityProvider());
 

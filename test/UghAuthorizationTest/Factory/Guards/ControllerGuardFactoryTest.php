@@ -16,15 +16,15 @@ class ControllerGuardFactoryTest extends PHPUnit_Framework_TestCase
             'actions' => array('update', 'delete'),
             'roles' => array('member', 'editor')
         );
-        $authorizationProvderMock = $this->getMockBuilder('UghAuthorization\Authorization\AuthorizationService', array('matchIdentityRoles'))->disableOriginalConstructor()->getMock();
-        $authorizationProvderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(true));
+        $authorizationProviderMock = $this->getMockBuilder('UghAuthorization\Authorization\AuthorizationService', array('matchIdentityRoles'))->disableOriginalConstructor()->getMock();
+        $authorizationProviderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(true));
 
         $moduleOptionsMock = $this->getMockBuilder('UghAuthorization\Options\ModuleOptions', array('getControllerGuards'))->disableOriginalConstructor()->getMock();
         $moduleOptionsMock->expects($this->once())->method('getControllerGuards')->will($this->returnValue(array($testArray)));
 
         $serviceManager = new ServiceManager();
         $serviceManager->setService('UghAuthorization\Options\ModuleOptions', $moduleOptionsMock);
-        $serviceManager->setService('UghAuthorization\Authorization\RbacService', $authorizationProvderMock);
+        $serviceManager->setService('UghAuthorization\Authorization\AuthorizationService', $authorizationProviderMock);
 
         $factory = new ControllerGuardFactory();
 

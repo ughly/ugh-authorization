@@ -22,10 +22,13 @@ class RbacFactoryTest extends PHPUnit_Framework_TestCase
         $roleProviderMock = $this->getMockBuilder('UghAuthorization\Permissions\Rbac\RoleProvider', array('getRoles'))->disableOriginalConstructor()->getMock();
         $roleProviderMock->expects($this->once())->method('getRoles')->will($this->returnValue(array(new Role('admin'))));
 
-        $moduleOptions = new ModuleOptions(array('identity_provider' => 'UghAuthorization\Identity\IdentityProvider', 'role_provider' => 'UghAuthorization\Permissions\Rbac\RoleProvider'));
+        $roleProviderPluginManagerMock = $this->getMockBuilder('UghAuthorization\Permissions\Rbac\RoleProviderPluginManager', array('get'))->disableOriginalConstructor()->getMock();
+        $roleProviderPluginManagerMock->expects($this->once())->method('get')->will($this->returnValue($roleProviderMock));
+
+        $moduleOptions = new ModuleOptions(array('identity_provider' => 'UghAuthorization\Identity\IdentityProvider', 'role_provider' => array('UghAuthorization\Permissions\Rbac\RoleProvider' => array())));
 
         $serviceManager = new ServiceManager();
-        $serviceManager->setService('UghAuthorization\Permissions\Rbac\RoleProvider', $roleProviderMock);
+        $serviceManager->setService('UghAuthorization\Permissions\Rbac\RoleProviderPluginManager', $roleProviderPluginManagerMock);
         $serviceManager->setService('UghAuthorization\Identity\IdentityProvider', $identityProviderMock);
         $serviceManager->setService('UghAuthorization\Options\ModuleOptions', $moduleOptions);
 

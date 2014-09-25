@@ -11,7 +11,7 @@ return array(
         ),
         'config_glob_paths' => array(
             'config/autoload/{,*.}{global,local}.php',
-            'tests/config/autoload/{,*.}{global,local}.php',
+            'test/config/autoload/{,*.}{global,local}.php',
         )
     )
 );
