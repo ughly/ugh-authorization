@@ -32,7 +32,7 @@ class ControllerGuard implements Guard
         $allowedRoles = array();
 
         foreach ($this->rules as $controller) {
-            if (fnmatch($controller['controller'], $controllerName) &&
+            if ($controller['controller'] == $controllerName &&
                     in_array($actionName, $controller['actions'])) {
                 $allowedRoles = array_merge($allowedRoles, $controller['roles']);
             }
