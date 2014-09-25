@@ -13,16 +13,6 @@ Requirements
 Install
 ==========
 
-* Add the following to the end of your composer.json
-```
-	"repositories": [
-			{
-				"type": "git",
-				"url": "https://github.com/ughly/ugh-authorization.git",
-				"branch": "master"
-			}
-		]
-```
 * Add the following to the require section of composer.json
 ```
 	"ughly/ugh-authorization": "dev-master"
