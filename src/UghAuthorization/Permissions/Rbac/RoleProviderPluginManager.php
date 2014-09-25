@@ -15,9 +15,7 @@ class RoleProviderPluginManager extends AbstractPluginManager
     public function validatePlugin($plugin)
     {
         if (!$plugin instanceof RoleProvider) {
-            throw new RuntimeException(sprintf(
-                    'Role provider must implement "UghAuthorization\Permissions\Rbac\RoleProvider", but "%s" was given', is_object($plugin) ? get_class($plugin) : gettype($plugin)
-            ));
+            throw new RuntimeException(sprintf('Role provider must implement "UghAuthorization\Permissions\Rbac\RoleProvider", but "%s" was given', is_object($plugin) ? get_class($plugin) : gettype($plugin)));
         }
     }
 
