@@ -37,6 +37,15 @@ class RouteGuardTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($routeGuard->isGranted('secure'));
     }
 
+    public function testCanAllowAccessForUnguardedRoute()
+    {
+        $this->authorizationServiceMock->expects($this->any())->method('matchIdentityRoles')->will($this->returnValue(false));
+
+        $routeGuard = new RouteGuard($this->authorizationServiceMock, array());
+
+        $this->assertTrue($routeGuard->isGranted('secure'));
+    }
+
     public function testAllowedRolesByRouteName()
     {
         $routeGuard = new RouteGuard($this->authorizationServiceMock, array(

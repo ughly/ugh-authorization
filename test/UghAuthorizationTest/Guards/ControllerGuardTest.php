@@ -20,8 +20,8 @@ class ControllerGuardTest extends PHPUnit_Framework_TestCase
         $this->authorizationServiceMock->expects($this->any())->method('matchIdentityRoles')->will($this->returnValue(false));
 
         $controllerGuard = new ControllerGuard($this->authorizationServiceMock, array(array(
-                'controller' => 'index',
-                'actions' => array('update', 'delete'),
+                'controller' => 'foo',
+                'actions' => array('bar', 'delete'),
                 'roles' => array('member', 'editor')
             )
         ));
@@ -34,11 +34,20 @@ class ControllerGuardTest extends PHPUnit_Framework_TestCase
         $this->authorizationServiceMock->expects($this->any())->method('matchIdentityRoles')->will($this->returnValue(true));
 
         $controllerGuard = new ControllerGuard($this->authorizationServiceMock, array(array(
-                'controller' => 'index',
-                'actions' => array('update', 'delete'),
+                'controller' => 'foo',
+                'actions' => array('bar', 'delete'),
                 'roles' => array('member', 'editor')
             )
         ));
+
+        $this->assertTrue($controllerGuard->isGranted(array('controller' => 'foo', 'action' => 'bar')));
+    }
+
+    public function testCanGrantAccessForUnguardedControllers()
+    {
+        $this->authorizationServiceMock->expects($this->any())->method('matchIdentityRoles')->will($this->returnValue(false));
+
+        $controllerGuard = new ControllerGuard($this->authorizationServiceMock, array());
 
         $this->assertTrue($controllerGuard->isGranted(array('controller' => 'foo', 'action' => 'bar')));
     }

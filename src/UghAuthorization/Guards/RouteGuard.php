@@ -19,21 +19,44 @@ class RouteGuard implements Guard
 
     public function isGranted($routeName)
     {
+        if (!$this->isRouteGuarded($routeName)) {
+            return true;
+        }
+
         $allowedRoles = $this->getAllowedRolesByRouteName($routeName);
 
         return $this->authorizationService->matchIdentityRoles($allowedRoles);
+    }
+
+    public function isRouteGuarded($routeName)
+    {
+        $ruleMatches = $this->matchRuleByRouteName($routeName);
+        return !empty($ruleMatches);
     }
 
     public function getAllowedRolesByRouteName($routeName)
     {
         $allowedRoles = array();
 
-        foreach ($this->rules as $route => $roles) {
-            if (fnmatch($route, $routeName)) {
-                $allowedRoles = array_merge($allowedRoles, $roles);
-            }
+        $ruleMatches = $this->matchRuleByRouteName($routeName);
+
+        foreach ($ruleMatches as $roles) {
+            $allowedRoles = array_merge($allowedRoles, $roles);
         }
 
         return $allowedRoles;
+    }
+
+    public function matchRuleByRouteName($routeName)
+    {
+        $matches = array();
+
+        foreach ($this->rules as $route => $roles) {
+            if (fnmatch($route, $routeName)) {
+                $matches[$route] = $roles;
+            }
+        }
+
+        return $matches;
     }
 }

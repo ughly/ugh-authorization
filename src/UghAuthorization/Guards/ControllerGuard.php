@@ -22,22 +22,45 @@ class ControllerGuard implements Guard
         $controllerName = $permission['controller'];
         $actionName = $permission['action'];
 
+        if (!$this->isControllerActionGuarded($controllerName, $actionName)) {
+            return true;
+        }
+
         $allowedRoles = $this->getAllowedRolesByControllerAction($controllerName, $actionName);
 
         return $this->authorizationService->matchIdentityRoles($allowedRoles);
+    }
+
+    public function isControllerActionGuarded($controllerName, $actionName)
+    {
+        $ruleMatches = $this->matchRuleByControllerAction($controllerName, $actionName);
+        return !empty($ruleMatches);
     }
 
     public function getAllowedRolesByControllerAction($controllerName, $actionName)
     {
         $allowedRoles = array();
 
-        foreach ($this->rules as $controller) {
-            if ($controller['controller'] == $controllerName &&
-                    in_array($actionName, $controller['actions'])) {
-                $allowedRoles = array_merge($allowedRoles, $controller['roles']);
-            }
+        $ruleMatches = $this->matchRuleByControllerAction($controllerName, $actionName);
+
+        foreach ($ruleMatches as $rule) {
+            $allowedRoles = array_merge($allowedRoles, $rule['roles']);
         }
 
         return $allowedRoles;
+    }
+
+    public function matchRuleByControllerAction($controllerName, $actionName)
+    {
+        $matches = array();
+
+        foreach ($this->rules as $controller) {
+            if ($controller['controller'] == $controllerName &&
+                    in_array($actionName, $controller['actions'])) {
+                $matches[] = $controller;
+            }
+        }
+
+        return $matches;
     }
 }

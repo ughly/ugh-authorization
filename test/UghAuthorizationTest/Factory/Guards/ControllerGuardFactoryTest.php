@@ -12,15 +12,16 @@ class ControllerGuardFactoryTest extends PHPUnit_Framework_TestCase
     public function testCanCreateService()
     {
         $testArray = array(
-            'controller' => 'index',
-            'actions' => array('update', 'delete'),
-            'roles' => array('member', 'editor')
-        );
+            array(
+                'controller' => 'index',
+                'actions' => array('update', 'delete'),
+                'roles' => array('member', 'editor')
+        ));
         $authorizationProviderMock = $this->getMockBuilder('UghAuthorization\Authorization\AuthorizationService', array('matchIdentityRoles'))->disableOriginalConstructor()->getMock();
         $authorizationProviderMock->expects($this->once())->method('matchIdentityRoles')->will($this->returnValue(true));
 
         $moduleOptionsMock = $this->getMockBuilder('UghAuthorization\Options\ModuleOptions', array('getControllerGuards'))->disableOriginalConstructor()->getMock();
-        $moduleOptionsMock->expects($this->once())->method('getControllerGuards')->will($this->returnValue(array($testArray)));
+        $moduleOptionsMock->expects($this->once())->method('getControllerGuards')->will($this->returnValue($testArray));
 
         $serviceManager = new ServiceManager();
         $serviceManager->setService('UghAuthorization\Options\ModuleOptions', $moduleOptionsMock);
