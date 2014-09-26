@@ -18,7 +18,7 @@ class AuthorizationEventListener extends AbstractListenerAggregate
 
     public function attach(EventManagerInterface $events)
     {
-        $events->attach('authorization.check', array($this, 'onCheck'));
+        $events->getSharedManager()->attach('*', 'authorization.check', array($this, 'onCheck'));
     }
 
     public function onCheck(EventInterface $event)

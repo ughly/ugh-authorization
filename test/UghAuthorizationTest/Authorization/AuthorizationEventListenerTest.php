@@ -5,6 +5,7 @@ namespace UghAuthorizationTest\Authorization;
 use PHPUnit_Framework_TestCase;
 use UghAuthorization\Authorization\AuthorizationEventListener;
 use Zend\EventManager\Event;
+use Zend\EventManager\SharedEventManager;
 
 class AuthorizationEventListenerTest extends PHPUnit_Framework_TestCase
 {
@@ -14,7 +15,7 @@ class AuthorizationEventListenerTest extends PHPUnit_Framework_TestCase
         $authorizationServiceMock = $this->getMockBuilder('UghAuthorization\Authorization\AuthorizationService', array('isGranted'))->disableOriginalConstructor()->getMock();
 
         $eventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
-        $eventManager->expects($this->once())->method('attach')->with('authorization.check');
+        $eventManager->expects($this->once())->method('getSharedManager')->will($this->returnValue(new SharedEventManager()));
 
         $listener = new AuthorizationEventListener($authorizationServiceMock);
         $listener->attach($eventManager);
