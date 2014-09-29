@@ -28,5 +28,10 @@ return array(
             'UghAuthorization\Guards\ControllerGuardListener' => 'UghAuthorization\Factory\Guards\ControllerGuardListenerFactory',
             'UghAuthorization\Authorization\AuthorizationEventListener' => 'UghAuthorization\Factory\Authorization\AuthorizationEventListenerFactory'
         )
+    ),
+    'view_manager' => array(
+        'template_map' => array(
+            'error/403' => __DIR__ . '../view/error/403.phtml',
+        )
     )
 );
