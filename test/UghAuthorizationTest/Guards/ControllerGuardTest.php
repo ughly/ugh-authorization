@@ -29,6 +29,34 @@ class ControllerGuardTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($controllerGuard->isGranted(array('controller' => 'foo', 'action' => 'bar')));
     }
 
+    public function testCanGuardWildcardControllers()
+    {
+        $this->authorizationServiceMock->expects($this->any())->method('matchIdentityRoles')->will($this->returnValue(false));
+
+        $controllerGuard = new ControllerGuard($this->authorizationServiceMock, array(array(
+                'controller' => '*',
+                'actions' => array('*'),
+                'roles' => array('member', 'editor')
+            )
+        ));
+
+        $this->assertFalse($controllerGuard->isGranted(array('controller' => 'foo', 'action' => 'bar')));
+    }
+
+    public function testCanGuardWildcardControllerActions()
+    {
+        $this->authorizationServiceMock->expects($this->any())->method('matchIdentityRoles')->will($this->returnValue(false));
+
+        $controllerGuard = new ControllerGuard($this->authorizationServiceMock, array(array(
+                'controller' => 'fo*',
+                'actions' => array('*'),
+                'roles' => array('member', 'editor')
+            )
+        ));
+
+        $this->assertFalse($controllerGuard->isGranted(array('controller' => 'foo', 'action' => 'bar')));
+    }
+
     public function testCanGrantAccessForControllers()
     {
         $this->authorizationServiceMock->expects($this->any())->method('matchIdentityRoles')->will($this->returnValue(true));

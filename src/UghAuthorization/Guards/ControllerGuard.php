@@ -55,12 +55,24 @@ class ControllerGuard implements Guard
         $matches = array();
 
         foreach ($this->rules as $controller) {
-            if ($controller['controller'] == $controllerName &&
-                    in_array($actionName, $controller['actions'])) {
+            if (fnmatch($controller['controller'], $controllerName) && $this->isActionNameInArray($actionName, $controller['actions'])) {
                 $matches[] = $controller;
             }
         }
 
         return $matches;
+    }
+
+    public function isActionNameInArray($actionName, $array)
+    {
+        $flag = false;
+
+        foreach ($array as $item) {
+            if (fnmatch($item, $actionName)) {
+                $flag = true;
+            }
+        }
+
+        return $flag;
     }
 }
