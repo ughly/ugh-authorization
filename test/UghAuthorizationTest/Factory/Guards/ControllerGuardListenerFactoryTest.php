@@ -18,6 +18,10 @@ class ControllerGuardListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new ControllerGuardListenerFactory();
 
+        $moduleOptionsMock = $this->getMockBuilder('UghAuthorization\Options\ModuleOptions', array('getControllerGuards'))->disableOriginalConstructor()->getMock();
+
+        $serviceManager->setService('UghAuthorization\Options\ModuleOptions', $moduleOptionsMock);
+
         $controllerGuardListener = $factory->createService($serviceManager);
 
         $this->assertInstanceOf('UghAuthorization\Guards\ControllerGuardListener', $controllerGuardListener);

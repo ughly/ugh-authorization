@@ -18,6 +18,10 @@ class RouteGuardListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new RouteGuardListenerFactory();
 
+        $moduleOptionsMock = $this->getMockBuilder('UghAuthorization\Options\ModuleOptions', array('getControllerGuards'))->disableOriginalConstructor()->getMock();
+
+        $serviceManager->setService('UghAuthorization\Options\ModuleOptions', $moduleOptionsMock);
+
         $routeGuardListener = $factory->createService($serviceManager);
 
         $this->assertInstanceOf('UghAuthorization\Guards\RouteGuardListener', $routeGuardListener);
