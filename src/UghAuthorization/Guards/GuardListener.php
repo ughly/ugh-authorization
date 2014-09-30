@@ -33,6 +33,12 @@ abstract class GuardListener extends AbstractListenerAggregate
 
         $event->stopPropagation(true);
 
+        $event->setViewModel($this->guard->getErrorViewModel());
+
+        $response = $event->getResponse();
+        $response->setStatusCode(403);
+        $event->setResponse($response);
+
         $application = $event->getApplication();
         $eventManager = $application->getEventManager();
 

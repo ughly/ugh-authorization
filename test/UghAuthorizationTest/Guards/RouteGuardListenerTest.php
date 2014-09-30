@@ -6,6 +6,8 @@ use PHPUnit_Framework_TestCase;
 use UghAuthorization\Guards\RouteGuardListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\View\Model\ViewModel;
+use Zend\Http\Response;
 
 class RouteGuardListenerTest extends PHPUnit_Framework_TestCase
 {
@@ -37,8 +39,12 @@ class RouteGuardListenerTest extends PHPUnit_Framework_TestCase
         $event->setRouteMatch($routeMatch);
         $event->setApplication($application);
 
-        $routeGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard', array('isGranted'))->disableOriginalConstructor()->getMock();
+        $response = new Response();
+        $event->setResponse($response);
+
+        $routeGuardMock = $this->getMockBuilder('UghAuthorization\Guards\Guard', array('isGranted', 'getErrorViewModel'))->disableOriginalConstructor()->getMock();
         $routeGuardMock->expects($this->any())->method('isGranted')->will($this->returnValue(false));
+        $routeGuardMock->expects($this->any())->method('getErrorViewModel')->will($this->returnValue(new ViewModel()));
 
         $routeGuardListener = new RouteGuardListener($routeGuardMock);
 

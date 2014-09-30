@@ -10,6 +10,7 @@ class ControllerGuard implements Guard
     /** @var AuthorizationService */
     private $authorizationService;
     private $rules;
+    private $errorView;
 
     public function __construct(AuthorizationService $authorizationService, array $rules)
     {
@@ -74,5 +75,18 @@ class ControllerGuard implements Guard
         }
 
         return $flag;
+    }
+
+    public function setErrorViewModel($viewModel)
+    {
+        $this->errorView = $viewModel;
+    }
+
+    public function getErrorViewModel()
+    {
+        if (!isset($this->errorView)) {
+            $this->errorView = new ViewModel();
+        }
+        return $this->errorView;
     }
 }

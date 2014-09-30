@@ -12,6 +12,7 @@ class ModuleOptions extends AbstractOptions
     private $routeGuards;
     private $controllerGuards;
     private $guardListeners;
+    private $template403;
 
     public function __construct($options = null)
     {
@@ -66,5 +67,18 @@ class ModuleOptions extends AbstractOptions
     public function setGuardListeners($guardListeners)
     {
         $this->guardListeners = $guardListeners;
+    }
+
+    public function get403Template()
+    {
+        if (!isset($this->template403)) {
+            $this->template403 = 'error/403';
+        }
+        return $this->template403;
+    }
+
+    public function set403Template($template403)
+    {
+        $this->template403 = $template403;
     }
 }
