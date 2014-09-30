@@ -35,7 +35,9 @@ abstract class GuardListener extends AbstractListenerAggregate
 
         $event->stopPropagation(true);
 
-        $event->setViewModel($this->getErrorViewModel());
+        if ($this->hasErrorViewModel()) {
+            $event->setViewModel($this->getErrorViewModel());
+        }
 
         $response = $event->getResponse();
         $response->setStatusCode(403);
@@ -54,9 +56,11 @@ abstract class GuardListener extends AbstractListenerAggregate
 
     public function getErrorViewModel()
     {
-        if (!isset($this->errorView)) {
-            $this->errorView = new ViewModel();
-        }
         return $this->errorView;
+    }
+
+    public function hasErrorViewModel()
+    {
+        return isset($this->errorView);
     }
 }
