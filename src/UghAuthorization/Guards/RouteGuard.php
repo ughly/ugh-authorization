@@ -60,17 +60,4 @@ class RouteGuard implements Guard
 
         return $matches;
     }
-
-    public function setErrorViewModel($viewModel)
-    {
-        $this->errorView = $viewModel;
-    }
-
-    public function getErrorViewModel()
-    {
-        if (!isset($this->errorView)) {
-            $this->errorView = new ViewModel();
-        }
-        return $this->errorView;
-    }
 }
