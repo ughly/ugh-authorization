@@ -7,13 +7,15 @@ use UghAuthorization\Guards\Guard;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
-use Zend\View\Model\ViewModel;
+use Zend\View\Model\ModelInterface;
 
 abstract class GuardListener extends AbstractListenerAggregate
 {
 
     /** @var Guard */
     protected $guard;
+
+    /** @var ModelInterface */
     protected $errorView;
 
     public function __construct(Guard $guard)
@@ -36,7 +38,7 @@ abstract class GuardListener extends AbstractListenerAggregate
         $event->stopPropagation(true);
 
         if ($this->hasErrorViewModel()) {
-            $event->setViewModel($this->getErrorViewModel());
+            $event->setViewModel($this->errorView);
         }
 
         $response = $event->getResponse();
@@ -49,14 +51,9 @@ abstract class GuardListener extends AbstractListenerAggregate
         $eventManager->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $event);
     }
 
-    public function setErrorViewModel($viewModel)
+    public function setErrorViewModel(ModelInterface $viewModel)
     {
         $this->errorView = $viewModel;
-    }
-
-    public function getErrorViewModel()
-    {
-        return $this->errorView;
     }
 
     public function hasErrorViewModel()

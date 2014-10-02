@@ -3,7 +3,6 @@
 namespace UghAuthorization\Guards;
 
 use UghAuthorization\Authorization\AuthorizationService;
-use Zend\View\Model\ViewModel;
 
 class RouteGuard implements Guard
 {

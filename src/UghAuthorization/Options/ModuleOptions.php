@@ -12,7 +12,7 @@ class ModuleOptions extends AbstractOptions
     private $routeGuards;
     private $controllerGuards;
     private $guardListeners;
-    private $template403;
+    private $unauthorizedViewScript;
 
     public function __construct($options = null)
     {
@@ -69,16 +69,13 @@ class ModuleOptions extends AbstractOptions
         $this->guardListeners = $guardListeners;
     }
 
-    public function get403Template()
+    public function getUnauthorizedViewScript()
     {
-        if (!isset($this->template403)) {
-            $this->template403 = 'error/403';
-        }
-        return $this->template403;
+        return $this->unauthorizedViewScript;
     }
 
-    public function set403Template($template403)
+    public function setUnauthorizedViewScript($unauthorizedViewScript)
     {
-        $this->template403 = $template403;
+        $this->unauthorizedViewScript = $unauthorizedViewScript;
     }
 }

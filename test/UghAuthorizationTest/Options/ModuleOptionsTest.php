@@ -15,7 +15,8 @@ class ModuleOptionsTest extends PHPUnit_Framework_TestCase
             'role_provider' => array('RoleProvider'),
             'route_guards' => array('RouteGuards'),
             'controller_guards' => array('ControllerGuards'),
-            'guard_listeners' => array('UghAuthorization\Guards\RouteGuardListener', 'UghAuthorization\Guards\ControllerGuardListener')
+            'guard_listeners' => array('UghAuthorization\Guards\RouteGuardListener', 'UghAuthorization\Guards\ControllerGuardListener'),
+            'unauthorized_view_script' => 'error/403'
         ));
 
         $this->assertEquals('IdentityProvider', $moduleOptions->getIdentityProvider());
@@ -23,5 +24,6 @@ class ModuleOptionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('RouteGuards'), $moduleOptions->getRouteGuards());
         $this->assertEquals(array('ControllerGuards'), $moduleOptions->getControllerGuards());
         $this->assertEquals(array('UghAuthorization\Guards\RouteGuardListener', 'UghAuthorization\Guards\ControllerGuardListener'), $moduleOptions->getGuardListeners());
+        $this->assertEquals('error/403', $moduleOptions->getUnauthorizedViewScript());
     }
 }
