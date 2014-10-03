@@ -11,6 +11,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class RbacServiceFactory implements FactoryInterface
 {
 
+    /**
+     * 
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return RbacService
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $rbac Rbac */

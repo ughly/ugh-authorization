@@ -8,10 +8,16 @@ use Zend\ServiceManager\AbstractPluginManager;
 class RoleProviderPluginManager extends AbstractPluginManager
 {
 
+    /** @var array */
     protected $invokableClasses = array(
         'UghAuthorization\Permissions\Rbac\RoleProvider' => 'UghAuthorization\Permissions\Rbac\ConfigFileRoleProvider'
     );
 
+    /**
+     * 
+     * @param RoleProvider $plugin
+     * @throws RuntimeException
+     */
     public function validatePlugin($plugin)
     {
         if (!$plugin instanceof RoleProvider) {
@@ -19,6 +25,11 @@ class RoleProviderPluginManager extends AbstractPluginManager
         }
     }
 
+    /**
+     * 
+     * @param string $name
+     * @return string
+     */
     protected function canonicalizeName($name)
     {
         return $name;

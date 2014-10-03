@@ -9,6 +9,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class RoleProviderPluginManagerFactory implements FactoryInterface
 {
 
+    /**
+     * 
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return RoleProviderPluginManager
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $roleProviderPluginManager = new RoleProviderPluginManager();

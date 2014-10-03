@@ -11,6 +11,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class RouteGuardFactory implements FactoryInterface
 {
 
+    /**
+     * 
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return RouteGuard
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $authorizationService AuthorizationService */

@@ -12,6 +12,11 @@ use Zend\View\Model\ViewModel;
 class ControllerGuardListenerFactory implements FactoryInterface
 {
 
+    /**
+     * 
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return ControllerGuardListener
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $options ModuleOptions */

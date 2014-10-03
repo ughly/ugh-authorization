@@ -7,6 +7,10 @@ use Zend\Mvc\MvcEvent;
 class ControllerGuardListener extends GuardListener
 {
 
+    /**
+     * 
+     * @param MvcEvent $event
+     */
     public function onGuard(MvcEvent $event)
     {
         $controllerName = $event->getRouteMatch()->getParam('controller');

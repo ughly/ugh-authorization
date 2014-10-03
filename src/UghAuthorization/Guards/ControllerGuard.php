@@ -9,14 +9,26 @@ class ControllerGuard implements Guard
 
     /** @var AuthorizationService */
     private $authorizationService;
+
+    /** @var array */
     private $rules;
 
+    /**
+     * 
+     * @param AuthorizationService $authorizationService
+     * @param array $rules
+     */
     public function __construct(AuthorizationService $authorizationService, array $rules)
     {
         $this->authorizationService = $authorizationService;
         $this->rules = $rules;
     }
 
+    /**
+     * 
+     * @param mixed $permission
+     * @return boolean
+     */
     public function isGranted($permission)
     {
         $controllerName = $permission['controller'];
@@ -31,12 +43,24 @@ class ControllerGuard implements Guard
         return $this->authorizationService->matchIdentityRoles($allowedRoles);
     }
 
+    /**
+     * 
+     * @param string $controllerName
+     * @param string $actionName
+     * @return boolean
+     */
     public function isControllerActionGuarded($controllerName, $actionName)
     {
         $ruleMatches = $this->matchRuleByControllerAction($controllerName, $actionName);
         return !empty($ruleMatches);
     }
 
+    /**
+     * 
+     * @param string $controllerName
+     * @param string $actionName
+     * @return array
+     */
     public function getAllowedRolesByControllerAction($controllerName, $actionName)
     {
         $allowedRoles = array();
@@ -50,6 +74,12 @@ class ControllerGuard implements Guard
         return $allowedRoles;
     }
 
+    /**
+     * 
+     * @param string $controllerName
+     * @param string $actionName
+     * @return array
+     */
     public function matchRuleByControllerAction($controllerName, $actionName)
     {
         $matches = array();
@@ -63,7 +93,13 @@ class ControllerGuard implements Guard
         return $matches;
     }
 
-    public function isActionNameInArray($actionName, $array)
+    /**
+     * 
+     * @param string $actionName
+     * @param array $array
+     * @return boolean
+     */
+    public function isActionNameInArray($actionName, array $array)
     {
         $flag = false;
 

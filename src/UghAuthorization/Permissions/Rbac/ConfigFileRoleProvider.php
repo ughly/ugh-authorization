@@ -7,13 +7,23 @@ use Zend\Permissions\Rbac\Role;
 class ConfigFileRoleProvider implements RoleProvider
 {
 
+    /** @var array */
     private $rolesConfig;
 
+    /**
+     * 
+     * @param array $rolesConfig
+     */
     public function __construct(array $rolesConfig)
     {
         $this->rolesConfig = $rolesConfig;
     }
 
+    /**
+     * 
+     * @param array $roleNames
+     * @return array
+     */
     public function getRoles(array $roleNames)
     {
         $roles = array();
@@ -25,6 +35,11 @@ class ConfigFileRoleProvider implements RoleProvider
         return $roles;
     }
 
+    /**
+     * 
+     * @param string $roleName
+     * @return Role
+     */
     private function createRole($roleName)
     {
         $role = new Role($roleName);

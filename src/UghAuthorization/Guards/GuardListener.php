@@ -16,20 +16,36 @@ abstract class GuardListener extends AbstractListenerAggregate
     protected $guard;
 
     /** @var ModelInterface */
-    protected $errorView;
+    private $errorView;
 
+    /**
+     * 
+     * @param Guard $guard
+     */
     public function __construct(Guard $guard)
     {
         $this->guard = $guard;
     }
 
+    /**
+     * 
+     * @param EventManagerInterface $events
+     */
     public function attach(EventManagerInterface $events)
     {
         $events->attach(MvcEvent::EVENT_ROUTE, array($this, 'onGuard'));
     }
 
+    /**
+     * @abstract
+     * @param MvcEvent $event
+     */
     abstract public function onGuard(MvcEvent $event);
 
+    /**
+     * 
+     * @param MvcEvent $event
+     */
     protected function triggerForbiddenEvent(MvcEvent $event)
     {
         $event->setError('route-forbidden');
@@ -51,11 +67,19 @@ abstract class GuardListener extends AbstractListenerAggregate
         $eventManager->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $event);
     }
 
+    /**
+     * 
+     * @param ModelInterface $viewModel
+     */
     public function setErrorViewModel(ModelInterface $viewModel)
     {
         $this->errorView = $viewModel;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function hasErrorViewModel()
     {
         return isset($this->errorView);

@@ -9,14 +9,26 @@ class RouteGuard implements Guard
 
     /** @var AuthorizationService */
     private $authorizationService;
+
+    /** @var array */
     private $rules;
 
+    /**
+     * 
+     * @param AuthorizationService $authorizationService
+     * @param array $rules
+     */
     public function __construct(AuthorizationService $authorizationService, array $rules)
     {
         $this->authorizationService = $authorizationService;
         $this->rules = $rules;
     }
 
+    /**
+     * 
+     * @param string $routeName
+     * @return boolean
+     */
     public function isGranted($routeName)
     {
         if (!$this->isRouteGuarded($routeName)) {
@@ -28,12 +40,22 @@ class RouteGuard implements Guard
         return $this->authorizationService->matchIdentityRoles($allowedRoles);
     }
 
+    /**
+     * 
+     * @param string $routeName
+     * @return boolean
+     */
     public function isRouteGuarded($routeName)
     {
         $ruleMatches = $this->matchRuleByRouteName($routeName);
         return !empty($ruleMatches);
     }
 
+    /**
+     * 
+     * @param string $routeName
+     * @return array
+     */
     public function getAllowedRolesByRouteName($routeName)
     {
         $allowedRoles = array();
@@ -47,6 +69,11 @@ class RouteGuard implements Guard
         return $allowedRoles;
     }
 
+    /**
+     * 
+     * @param string $routeName
+     * @return array
+     */
     public function matchRuleByRouteName($routeName)
     {
         $matches = array();

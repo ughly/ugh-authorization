@@ -7,15 +7,28 @@ use Zend\Permissions\Rbac\Rbac;
 class RbacService implements AuthorizationService
 {
 
+    /** @var Rbac */
     private $rbac;
+
+    /** @var array */
     private $identityRoles;
 
+    /**
+     * 
+     * @param Rbac $rbac
+     * @param array $identityRoles
+     */
     public function __construct(Rbac $rbac, array $identityRoles)
     {
         $this->rbac = $rbac;
         $this->identityRoles = $identityRoles;
     }
 
+    /**
+     * 
+     * @param mixed $permission
+     * @return boolean
+     */
     public function isGranted($permission)
     {
         if (!$this->identityRoles) {
@@ -34,6 +47,11 @@ class RbacService implements AuthorizationService
         return $isGranted;
     }
 
+    /**
+     * 
+     * @param array $roles
+     * @return boolean
+     */
     public function matchIdentityRoles(array $roles)
     {
         $matches = array_intersect($this->identityRoles, $roles);

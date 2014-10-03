@@ -10,6 +10,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class AuthorizationEventListenerFactory implements FactoryInterface
 {
 
+    /**
+     * 
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return AuthorizationEventListener
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $authorizationService AuthorizationService */

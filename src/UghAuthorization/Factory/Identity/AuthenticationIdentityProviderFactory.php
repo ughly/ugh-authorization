@@ -10,6 +10,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class AuthenticationIdentityProviderFactory implements FactoryInterface
 {
 
+    /**
+     * 
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return AuthenticationIdentityProvider
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $authenticationService AuthenticationServiceInterface */
