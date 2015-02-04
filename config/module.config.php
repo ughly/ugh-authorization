@@ -13,7 +13,8 @@ return array(
         'guard_listeners' => array(
             'UghAuthorization\Guards\RouteGuardListener',
             'UghAuthorization\Guards\ControllerGuardListener'
-        )
+        ),
+        'unauthorized_view_script' => 'error/403'
     ),
     'service_manager' => array(
         'factories' => array(
